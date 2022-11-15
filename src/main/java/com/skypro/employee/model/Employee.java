@@ -21,18 +21,22 @@ public class Employee {
     }
 
     public String getLastName() {
+
         return lastName;
     }
 
     public int getId() {
+
         return id;
     }
 
     public int getDepartment() {
+
         return department;
     }
 
     public int getSalary() {
+
         return salary;
     }
 

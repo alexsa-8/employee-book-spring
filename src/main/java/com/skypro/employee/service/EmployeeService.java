@@ -29,27 +29,54 @@ public class EmployeeService {
         return employee;
 
     }
-    public int getSalarySum(){
+
+    public int getSalarySum() {
         return employees
                 .values()
                 .stream()
                 .mapToInt(Employee::getSalary)
                 .sum();
     }
-    public int getMinSalary(){
-        return employees.values().stream()
+
+    public List<Employee> getMinSalary() {
+        var employeeMinSalary = employees
+                .values()
+                .stream()
                 .mapToInt(Employee::getSalary)
-                .min().orElse(0);
+                .min()
+                .orElse(0);
+        List<Employee> list = new ArrayList<>();
+        for (Employee employee : employees.values()) {
+            if (employeeMinSalary == employee.getSalary()) {
+                list.add(employee);
+            }
+        }
+        return list;
     }
-    public int getMaxSalary(){
-        return employees.values().stream()
+
+    public List<Employee> getMaxSalary() {
+        var employeeMaxSalary = employees.values()
+                .stream()
                 .mapToInt(Employee::getSalary)
-                .max().orElse(0);
+                .max()
+                .orElse(0);
+        List<Employee> list = new ArrayList<>();
+        for (Employee employee : employees.values()) {
+            if (employeeMaxSalary == employee.getSalary()) {
+                list.add(employee);
+            }
+        }
+        return list;
     }
-    public List<Employee> getEmployeesAboveAverageSalary(){
-        var averageSalary = employees.values().stream().mapToInt(Employee::getSalary)
-                .average().orElseThrow();
-        return employees.values().stream().filter(employee ->
-                averageSalary < employee.getSalary()).collect(Collectors.toList());
+
+    public List<Employee> getEmployeesAboveAverageSalary() {
+        var averageSalary = employees.values()
+                .stream()
+                .mapToInt(Employee::getSalary)
+                .average()
+                .orElseThrow();
+        return employees.values()
+                .stream()
+                .filter(employee -> averageSalary < employee.getSalary()).collect(Collectors.toList());
     }
 }
